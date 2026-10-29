@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Kader - SIPosyu</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkblue: '#1A365D',
+                        primary: '#2B6CB0',
+                        lightblue: '#EBF8FF',
+                        bglight: '#F7FAFC',
+                        textdark: '#2D3748',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased bg-bglight text-textdark selection:bg-lightblue selection:text-primary">
+
+    <div class="flex min-h-[100dvh] w-full">
+        
+        <!-- Left Side - Visual Presentation (Hidden on Mobile) -->
+        <div class="hidden lg:flex lg:w-1/2 relative bg-darkblue overflow-hidden">
+            <!-- Background Image -->
+            <img src="lansia-img.png" alt="Posyandu" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80'">
+            
+            <!-- Content Overlay -->
+            <div class="relative z-10 flex flex-col justify-between p-12 lg:p-20 w-full">
+                <div>
+                    <!-- Menggunakan bg-white dan rounded agar logo tetap terlihat jelas di background gelap -->
+                    <div class="bg-white inline-block p-3 rounded-xl shadow-lg mb-8">
+                        <img src="logo-siposyu.png" alt="Logo SIPosyu" class="h-10 w-auto object-contain">
+                    </div>
+                    <h1 class="text-4xl xl:text-5xl font-bold text-white leading-tight mb-6">
+                        Sistem Informasi<br>Posyandu Yudhistira
+                    </h1>
+                    <p class="text-lg text-lightblue/80 max-w-md leading-relaxed">
+                        Platform digital terpadu untuk kader Posyandu dalam mengelola data kesehatan dan memantau perkembangan warga di lingkungan kita.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="w-full lg:w-1/2 flex flex-col bg-white relative">
+            
+            <!-- Back Button -->
+            <a href="index.html" class="absolute top-6 left-6 md:top-8 md:left-10 inline-flex items-center text-sm font-medium text-textdark/50 hover:text-primary transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Kembali ke Beranda
+            </a>
+
+            <!-- Form Container -->
+            <div class="flex-1 flex flex-col justify-center px-6 sm:px-12 md:px-20 lg:px-24 xl:px-32 py-20">
+                
+                <div class="max-w-md w-full mx-auto">
+                    <!-- Mobile Logo (Only visible on small screens) -->
+                    <div class="lg:hidden mb-10 flex justify-center">
+                        <img src="logo-siposyu.png" alt="Logo SIPosyu" class="h-12 w-auto object-contain">
+                    </div>
+
+                    <div class="mb-10 text-center lg:text-left">
+                        <h2 class="text-3xl font-bold text-darkblue mb-3">Selamat Datang</h2>
+                        <p class="text-textdark/70">Silakan masuk menggunakan akun kader Anda untuk mengakses *dashboard*.</p>
+                    </div>
+
+                    <!-- Placeholder form, no backend integration yet -->
+                    <form action="#" method="POST" class="space-y-6" id="loginForm">
+                        
+                        <!-- Username / Email Input -->
+                        <div>
+                            <label for="username" class="block text-sm font-semibold text-textdark mb-2">Email / ID Kader</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <input type="text" id="username" name="username" class="block w-full pl-11 pr-4 py-3.5 border border-gray-200 rounded-xl text-textdark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all bg-gray-50/50 focus:bg-white" placeholder="Masukkan ID kader Anda" required>
+                            </div>
+                        </div>
+
+                        <!-- Password Input -->
+                        <div>
+                            <label for="password" class="block text-sm font-semibold text-textdark mb-2">Kata Sandi</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                                <input type="password" id="password" name="password" class="block w-full pl-11 pr-12 py-3.5 border border-gray-200 rounded-xl text-textdark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all bg-gray-50/50 focus:bg-white" placeholder="••••••••" required>
+                                
+                                <!-- Toggle Password Visibility Button -->
+                                <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-primary focus:outline-none">
+                                    <svg id="eye-icon" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-2">
+                            <button type="submit" class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-base font-semibold text-white bg-primary hover:bg-darkblue focus:outline-none focus:ring-4 focus:ring-lightblue transition-all">
+                                Masuk ke Dashboard
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- Footer Copyright -->
+            <div class="py-6 border-t border-gray-100 flex justify-center items-center">
+                <p class="text-textdark/40 text-sm font-medium">copyright 2026 • Powered by ARS.Creat!v</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- UI Interaction Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+
+            // Toggle Password Visibility
+            togglePassword.addEventListener('click', () => {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                // Change Icon state
+                if (type === 'text') {
+                    eyeIcon.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                    `; // Eye slash icon
+                } else {
+                    eyeIcon.innerHTML = `
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    `; // Eye open icon
+                }
+            });
+
+            // Prevent default form submission (until Firebase is ready)
+            document.getElementById('loginForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Tampilan UI login siap! Integrasi Firebase akan ditambahkan pada tahap selanjutnya.');
+            });
+        });
+    </script>
+</body>
+</html>
