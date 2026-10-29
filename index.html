@@ -33,7 +33,7 @@
         }
     </script>
 
-    <!-- Custom CSS for Slider & Specifics -->
+    <!-- Custom CSS for Slider & Modal Transitions -->
     <style>
         body {
             background-color: theme('colors.bglight');
@@ -57,13 +57,13 @@
 
         /* Reduced Motion Accessibility */
         @media (prefers-reduced-motion: reduce) {
-            .slide {
-                transition: none;
+            .slide, .modal-content {
+                transition: none !important;
             }
         }
     </style>
 </head>
-<body class="antialiased flex flex-col min-h-screen">
+<body class="antialiased flex flex-col min-h-screen relative">
 
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm transition-all">
@@ -71,7 +71,7 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <a href="#" class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
-                    <img src="logo-siposyu.png" alt="Logo SIPosyu" class="max-h-[70px] w-auto object-contain">
+                    <img src="logo-siposyu.png" alt="Logo SIPosyu" class="h-10 md:h-14 w-auto object-contain">
                 </a>
 
                 <!-- Desktop Menu -->
@@ -101,7 +101,7 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-lg">
             <div class="px-4 pt-2 pb-6 space-y-2">
                 <a href="#" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-textdark hover:bg-lightblue hover:text-primary">Beranda</a>
                 <a href="#layanan" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-textdark hover:bg-lightblue hover:text-primary">Layanan</a>
@@ -112,19 +112,23 @@
         </div>
     </nav>
 
-    <!-- Hero Section / Slider -->
-    <header class="relative w-full h-[80vh] min-h-[500px] max-h-[700px] overflow-hidden bg-darkblue group" id="hero-slider">
+<!-- Hero Section / Slider -->
+    <header class="relative w-full h-[100dvh] min-h-[500px] md:h-[80vh] md:max-h-[700px] overflow-hidden bg-darkblue group" id="hero-slider">
         
         <!-- Slide 1: Balita -->
         <div class="slide active">
-            <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Ibu dan anak balita" class="absolute inset-0 w-full h-full object-cover object-center" />
-            <div class="absolute inset-0 bg-gradient-to-r from-darkblue/90 via-darkblue/60 to-transparent"></div>
-            <div class="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+            <!-- Tambahkan object-center atau sesuaikan jika subjek balita ada di sisi tertentu -->
+            <img src="balita-img.jpg" alt="Sepeda santai anak-anak" class="absolute inset-0 w-full h-full object-cover object-center" onerror="this.src='https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=1920&q=80'" />
+            <!-- Gradient: Mobile bawah-ke-atas, Desktop kiri-ke-kanan -->
+            <div class="absolute inset-0 bg-gradient-to-t from-darkblue via-darkblue/80 to-darkblue/30 md:bg-gradient-to-r md:from-darkblue/90 md:via-darkblue/60 md:to-transparent"></div>
+            
+            <div class="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end md:justify-center pb-24 md:pb-0">
                 <div class="max-w-2xl">
-                    <span class="inline-block py-1 px-3 rounded-full bg-lightblue text-primary text-sm font-semibold tracking-wider mb-4">POSYANDU BALITA</span>
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">Lare Sehat,<br/>Tiyang Sepuh Mulyo</h1>
-                    <p class="text-lg md:text-xl text-white/90 mb-8 max-w-lg">Mendampingi setiap langkah tumbuh kembang buah hati dengan penuh kasih.</p>
-                    <a href="#layanan" class="inline-flex items-center px-6 py-3 rounded-full bg-white text-primary font-semibold hover:bg-lightblue transition-colors">
+                    <span class="inline-block py-1 px-3 rounded-full bg-lightblue text-primary text-xs sm:text-sm font-semibold tracking-wider mb-3 md:mb-4">POSYANDU BALITA</span>
+                    <!-- Ukuran teks diperkecil di mobile (text-3xl) -->
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 md:mb-4">Lare Sehat,<br/>Tiyang Sepuh Mulyo</h1>
+                    <p class="text-base md:text-lg text-white/90 mb-6 md:mb-8 max-w-lg">Mendampingi setiap langkah tumbuh kembang buah hati dengan penuh kasih.</p>
+                    <a href="#layanan" class="inline-flex items-center px-5 py-2.5 md:px-6 md:py-3 rounded-full bg-white text-primary text-sm md:text-base font-semibold hover:bg-lightblue transition-colors w-max">
                         Jelajahi Layanan Balita
                     </a>
                 </div>
@@ -133,14 +137,15 @@
 
         <!-- Slide 2: Remaja -->
         <div class="slide">
-            <img src="remaja-img.JPG" alt="Sekelompok remaja aktif" class="absolute inset-0 w-full h-full object-cover object-center" />
-            <div class="absolute inset-0 bg-gradient-to-r from-darkblue/90 via-darkblue/60 to-transparent"></div>
-            <div class="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+            <img src="remaja-img.JPG" alt="Sekelompok remaja aktif" class="absolute inset-0 w-full h-full object-cover object-center" onerror="this.src='https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1920&q=80'" />
+            <div class="absolute inset-0 bg-gradient-to-t from-darkblue via-darkblue/80 to-darkblue/30 md:bg-gradient-to-r md:from-darkblue/90 md:via-darkblue/60 md:to-transparent"></div>
+            
+            <div class="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end md:justify-center pb-24 md:pb-0">
                 <div class="max-w-2xl">
-                    <span class="inline-block py-1 px-3 rounded-full bg-lightblue text-primary text-sm font-semibold tracking-wider mb-4">POSYANDU REMAJA</span>
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">Mudo Mudi Unggul,<br/>Bebrayan Maju</h1>
-                    <p class="text-lg md:text-xl text-white/90 mb-8 max-w-lg">Generasi sehat, tangguh, dan siap memajukan masa depan masyarakat.</p>
-                    <a href="#layanan" class="inline-flex items-center px-6 py-3 rounded-full bg-white text-primary font-semibold hover:bg-lightblue transition-colors">
+                    <span class="inline-block py-1 px-3 rounded-full bg-lightblue text-primary text-xs sm:text-sm font-semibold tracking-wider mb-3 md:mb-4">POSYANDU REMAJA</span>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 md:mb-4">Mudo Mudi Unggul,<br/>Bebrayan Maju</h1>
+                    <p class="text-base md:text-lg text-white/90 mb-6 md:mb-8 max-w-lg">Generasi sehat, tangguh, dan siap memajukan masa depan masyarakat.</p>
+                    <a href="#layanan" class="inline-flex items-center px-5 py-2.5 md:px-6 md:py-3 rounded-full bg-white text-primary text-sm md:text-base font-semibold hover:bg-lightblue transition-colors w-max">
                         Jelajahi Layanan Remaja
                     </a>
                 </div>
@@ -149,14 +154,16 @@
 
         <!-- Slide 3: Lansia -->
         <div class="slide">
-            <img src="lansia-img.png" alt="Lansia bahagia" class="absolute inset-0 w-full h-full object-cover object-center" />
-            <div class="absolute inset-0 bg-gradient-to-r from-darkblue/90 via-darkblue/60 to-transparent"></div>
-            <div class="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+            <!-- PERHATIKAN INI: object-[75%_center] menggeser fokus foto ke arah kanan di mobile agar bapaknya tidak terpotong -->
+            <img src="lansia-img.png" alt="Lansia bahagia" class="absolute inset-0 w-full h-full object-cover object-[80%_center] md:object-center" onerror="this.src='https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1920&q=80'" />
+            <div class="absolute inset-0 bg-gradient-to-t from-darkblue via-darkblue/80 to-darkblue/30 md:bg-gradient-to-r md:from-darkblue/90 md:via-darkblue/60 md:to-transparent"></div>
+            
+            <div class="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end md:justify-center pb-24 md:pb-0">
                 <div class="max-w-2xl">
-                    <span class="inline-block py-1 px-3 rounded-full bg-lightblue text-primary text-sm font-semibold tracking-wider mb-4">POSYANDU LANSIA</span>
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">Sepuh Mulyo,<br/>Ayem Tentrem</h1>
-                    <p class="text-lg md:text-xl text-white/90 mb-8 max-w-lg">Masa tua yang mulia, penuh kedamaian, kesehatan, dan kesejahteraan.</p>
-                    <a href="#layanan" class="inline-flex items-center px-6 py-3 rounded-full bg-white text-primary font-semibold hover:bg-lightblue transition-colors">
+                    <span class="inline-block py-1 px-3 rounded-full bg-lightblue text-primary text-xs sm:text-sm font-semibold tracking-wider mb-3 md:mb-4">POSYANDU LANSIA</span>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3 md:mb-4">Sepuh Mulyo,<br/>Ayem Tentrem</h1>
+                    <p class="text-base md:text-lg text-white/90 mb-6 md:mb-8 max-w-lg">Masa tua yang mulia, penuh kedamaian, kesehatan, dan kesejahteraan.</p>
+                    <a href="#layanan" class="inline-flex items-center px-5 py-2.5 md:px-6 md:py-3 rounded-full bg-white text-primary text-sm md:text-base font-semibold hover:bg-lightblue transition-colors w-max">
                         Jelajahi Layanan Lansia
                     </a>
                 </div>
@@ -164,18 +171,18 @@
         </div>
 
         <!-- Slider Controls -->
-        <button id="prev-slide" class="absolute top-1/2 left-4 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 text-white backdrop-blur-sm hover:bg-primary transition-all opacity-0 group-hover:opacity-100 focus:opacity-100" aria-label="Slide sebelumnya">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        <button id="prev-slide" class="absolute top-1/2 left-2 md:left-4 -translate-y-1/2 z-30 p-2 md:p-3 rounded-full bg-black/30 text-white backdrop-blur-sm hover:bg-primary transition-all opacity-0 group-hover:opacity-100 focus:opacity-100" aria-label="Slide sebelumnya">
+            <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
-        <button id="next-slide" class="absolute top-1/2 right-4 -translate-y-1/2 z-30 p-3 rounded-full bg-black/30 text-white backdrop-blur-sm hover:bg-primary transition-all opacity-0 group-hover:opacity-100 focus:opacity-100" aria-label="Slide selanjutnya">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        <button id="next-slide" class="absolute top-1/2 right-2 md:right-4 -translate-y-1/2 z-30 p-2 md:p-3 rounded-full bg-black/30 text-white backdrop-blur-sm hover:bg-primary transition-all opacity-0 group-hover:opacity-100 focus:opacity-100" aria-label="Slide selanjutnya">
+            <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </button>
 
         <!-- Slider Indicators -->
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex space-x-3">
-            <button class="indicator w-10 h-2 rounded-full bg-white transition-all duration-300" aria-label="Go to slide 1"></button>
-            <button class="indicator w-4 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300" aria-label="Go to slide 2"></button>
-            <button class="indicator w-4 h-2 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300" aria-label="Go to slide 3"></button>
+        <div class="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-30 flex space-x-2 md:space-x-3">
+            <button class="indicator w-8 md:w-10 h-1.5 md:h-2 rounded-full bg-white transition-all duration-300" aria-label="Go to slide 1"></button>
+            <button class="indicator w-3 md:w-4 h-1.5 md:h-2 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300" aria-label="Go to slide 2"></button>
+            <button class="indicator w-3 md:w-4 h-1.5 md:h-2 rounded-full bg-white/50 hover:bg-white/80 transition-all duration-300" aria-label="Go to slide 3"></button>
         </div>
     </header>
 
@@ -183,7 +190,7 @@
     <main class="flex-grow">
         
         <!-- Layanan Section -->
-        <section id="layanan" class="py-20 bg-bglight">
+        <section id="layanan" class="py-20 bg-bglight relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <h2 class="text-3xl md:text-4xl font-bold text-darkblue mb-4">Layanan untuk Setiap Tahap Kehidupan</h2>
@@ -192,7 +199,7 @@
 
                 <div class="grid md:grid-cols-3 gap-8">
                     <!-- Balita Card -->
-                    <div class="group bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                    <div class="group bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-full h-1.5 bg-primary"></div>
                         <div class="w-14 h-14 rounded-full bg-lightblue flex items-center justify-center mb-6">
                             <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,15 +207,15 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-darkblue mb-3">Posyandu Balita</h3>
-                        <p class="text-textdark/70 mb-8 line-clamp-3">Pemantauan tumbuh kembang, imunisasi, dan pemenuhan gizi untuk memastikan anak-anak kita tumbuh sehat dan kuat sejak dini.</p>
-                        <a href="#informasi" class="inline-flex items-center text-primary font-semibold group-hover:text-darkblue transition-colors">
+                        <p class="text-textdark/70 mb-8 line-clamp-3 flex-grow">Pemantauan tumbuh kembang, imunisasi, dan pemenuhan gizi untuk memastikan anak-anak kita tumbuh sehat dan kuat sejak dini.</p>
+                        <button onclick="openModal('modal-balita')" class="inline-flex items-center text-primary font-semibold group-hover:text-darkblue transition-colors mt-auto focus:outline-none text-left w-max">
                             Pelajari selengkapnya 
                             <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </a>
+                        </button>
                     </div>
 
                     <!-- Remaja Card -->
-                    <div class="group bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                    <div class="group bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-full h-1.5 bg-primary"></div>
                         <div class="w-14 h-14 rounded-full bg-lightblue flex items-center justify-center mb-6">
                             <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -216,15 +223,15 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-darkblue mb-3">Posyandu Remaja</h3>
-                        <p class="text-textdark/70 mb-8 line-clamp-3">Edukasi kesehatan reproduksi, mental, dan fisik untuk membekali remaja menghadapi fase transisi dengan cerdas dan sehat.</p>
-                        <a href="#informasi" class="inline-flex items-center text-primary font-semibold group-hover:text-darkblue transition-colors">
+                        <p class="text-textdark/70 mb-8 line-clamp-3 flex-grow">Edukasi kesehatan reproduksi, mental, dan fisik untuk membekali remaja menghadapi fase transisi dengan cerdas dan sehat.</p>
+                        <button onclick="openModal('modal-remaja')" class="inline-flex items-center text-primary font-semibold group-hover:text-darkblue transition-colors mt-auto focus:outline-none text-left w-max">
                             Pelajari selengkapnya 
                             <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </a>
+                        </button>
                     </div>
 
                     <!-- Lansia Card -->
-                    <div class="group bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                    <div class="group bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col h-full">
                         <div class="absolute top-0 left-0 w-full h-1.5 bg-primary"></div>
                         <div class="w-14 h-14 rounded-full bg-lightblue flex items-center justify-center mb-6">
                             <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,11 +239,11 @@
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-darkblue mb-3">Posyandu Lansia</h3>
-                        <p class="text-textdark/70 mb-8 line-clamp-3">Pemeriksaan kesehatan rutin dan aktivitas pemberdayaan untuk menjaga kualitas hidup lansia agar tetap bugar dan sejahtera.</p>
-                        <a href="#informasi" class="inline-flex items-center text-primary font-semibold group-hover:text-darkblue transition-colors">
+                        <p class="text-textdark/70 mb-8 line-clamp-3 flex-grow">Pemeriksaan kesehatan rutin dan aktivitas pemberdayaan untuk menjaga kualitas hidup lansia agar tetap bugar dan sejahtera.</p>
+                        <button onclick="openModal('modal-lansia')" class="inline-flex items-center text-primary font-semibold group-hover:text-darkblue transition-colors mt-auto focus:outline-none text-left w-max">
                             Pelajari selengkapnya 
                             <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -251,13 +258,13 @@
                         <div class="absolute inset-0 bg-primary/10"></div>
                     </div>
                     <div class="order-1 md:order-2">
-                        <h2 class="text-3xl md:text-4xl font-bold text-darkblue mb-6">Merawat Kehidupan,<br>Bersama Masyarakat</h2>
+                        <h2 class="text-3xl md:text-4xl font-bold text-darkblue mb-6">Posyandu Yudhistira Panggang,<br><em>Memayu Hayuning Bawana</em></h2>
                         <div class="space-y-4 text-textdark/80 text-lg leading-relaxed">
                             <p>
-                                <strong>SIPosyu</strong> (Sistem Informasi Posyandu Yudhistira) hadir sebagai inovasi digital yang mendekatkan layanan kesehatan dasar kepada masyarakat, menghadirkan akses informasi yang cepat, mudah, dan transparan.
+                                <strong>SIPosyu</strong> (Sistem Informasi Posyandu Yudhistira) hadir sebagai wujud kepedulian terhadap sesama, selaras dengan filosofi <em>Memayu Hayuning Bawana</em>. Melalui inovasi digital, SIPosyu mendukung layanan kesehatan yang lebih mudah diakses, informatif, dan berorientasi pada kesejahteraan masyarakat.
                             </p>
                             <p>
-                                Dengan semangat gotong royong, SIPosyu menjangkau seluruh lapisan usia; mulai dari tumbuh kembang balita, bimbingan kesehatan remaja, hingga perawatan lansia di lingkungan kita.
+                                Dengan semangat gotong royong dan kepedulian lintas generasi, SIPosyu mendampingi perjalanan hidup masyarakat, mulai dari tumbuh kembang balita, kesehatan remaja, hingga kesejahteraan lansia. 
                             </p>
                         </div>
                     </div>
@@ -295,7 +302,6 @@
                 <!-- Brand -->
                 <div class="md:col-span-1">
                     <div class="flex items-center gap-2 mb-6">
-                        <!-- Footer Logo -->
                         <img src="logo-siposyu.png" alt="Logo SIPosyu" class="max-h-[40px] w-auto object-contain bg-white rounded p-1">
                     </div>
                     <p class="text-lightblue/80 leading-relaxed max-w-sm">
@@ -318,16 +324,143 @@
             </div>
             
             <div class="border-t border-primary/40 pt-6 mt-8 flex justify-center items-center">
-                <!-- CRITICAL COPYRIGHT RULE ENFORCED HERE -->
                 <p class="text-lightblue/70 text-sm">copyright 2026 • Powered by ARS.Creat!v</p>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript (No Errors, Properly Closed) -->
+    <!-- MODAL CONTAINERS -->
+    
+    <!-- Modal Balita -->
+    <div id="modal-balita" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300" aria-labelledby="modal-title-balita" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-darkblue/60 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-balita')"></div>
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg relative z-10 transform scale-95 transition-transform duration-300 overflow-hidden modal-content flex flex-col max-h-full">
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-bglight">
+                <h3 id="modal-title-balita" class="text-xl font-bold text-darkblue flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-lightblue flex items-center justify-center">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    </div>
+                    Detail Layanan Balita
+                </h3>
+                <button onclick="closeModal('modal-balita')" class="text-textdark/50 hover:text-primary p-2 focus:outline-none rounded-full hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <p class="text-textdark/80 mb-5">Kami menyediakan layanan komprehensif untuk mendukung masa emas pertumbuhan anak, meliputi:</p>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Penimbangan berat & pengukuran tinggi badan rutin.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Pemberian Imunisasi dasar lengkap sesuai standar Kemenkes.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Pemberian Kapsul Vitamin A (Bulan Februari & Agustus).</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Edukasi gizi seimbang (PMT) & pencegahan stunting.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end">
+                <button onclick="closeModal('modal-balita')" class="px-6 py-2.5 bg-primary text-white rounded-full font-medium hover:bg-darkblue transition-colors focus:ring-4 focus:ring-lightblue focus:outline-none">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Remaja -->
+    <div id="modal-remaja" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300" aria-labelledby="modal-title-remaja" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-darkblue/60 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-remaja')"></div>
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg relative z-10 transform scale-95 transition-transform duration-300 overflow-hidden modal-content flex flex-col max-h-full">
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-bglight">
+                <h3 id="modal-title-remaja" class="text-xl font-bold text-darkblue flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-lightblue flex items-center justify-center">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    Detail Layanan Remaja
+                </h3>
+                <button onclick="closeModal('modal-remaja')" class="text-textdark/50 hover:text-primary p-2 focus:outline-none rounded-full hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <p class="text-textdark/80 mb-5">Program khusus untuk membina fisik dan mental remaja dalam menghadapi masa transisi:</p>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Edukasi kesehatan reproduksi bagi remaja.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Pemberian Tablet Tambah Darah (TTD) untuk mencegah anemia.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Konseling psikologi dasar & skrining kesehatan mental.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Penyuluhan bahaya NAPZA & perilaku berisiko.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end">
+                <button onclick="closeModal('modal-remaja')" class="px-6 py-2.5 bg-primary text-white rounded-full font-medium hover:bg-darkblue transition-colors focus:ring-4 focus:ring-lightblue focus:outline-none">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Lansia -->
+    <div id="modal-lansia" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300" aria-labelledby="modal-title-lansia" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-darkblue/60 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-lansia')"></div>
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg relative z-10 transform scale-95 transition-transform duration-300 overflow-hidden modal-content flex flex-col max-h-full">
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-bglight">
+                <h3 id="modal-title-lansia" class="text-xl font-bold text-darkblue flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-lightblue flex items-center justify-center">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    Detail Layanan Lansia
+                </h3>
+                <button onclick="closeModal('modal-lansia')" class="text-textdark/50 hover:text-primary p-2 focus:outline-none rounded-full hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <p class="text-textdark/80 mb-5">Fasilitas dan pendampingan khusus untuk menjaga kualitas hidup lansia di lingkungan kita:</p>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Pemeriksaan fisik (Tekanan darah, deteksi dini diabetes/kolesterol).</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Kegiatan senam lansia rutin untuk menjaga kebugaran otot & sendi.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Konsultasi gizi khusus keluhan usia lanjut.</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-textdark">Dukungan sosial & spiritual antar warga lanjut usia.</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end">
+                <button onclick="closeModal('modal-lansia')" class="px-6 py-2.5 bg-primary text-white rounded-full font-medium hover:bg-darkblue transition-colors focus:ring-4 focus:ring-lightblue focus:outline-none">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Menu Toggle ---
+            // --- Mobile Menu Logic ---
             const btn = document.getElementById('mobile-menu-btn');
             const menu = document.getElementById('mobile-menu');
             const iconPath = document.getElementById('menu-icon-path');
@@ -360,19 +493,14 @@
             
             let currentSlide = 0;
             let slideInterval;
-            const intervalTime = 6000; // 6 seconds per requirement
+            const intervalTime = 6000; 
 
             if (slides.length > 0) {
                 function goToSlide(n) {
-                    // Remove active from all
                     slides[currentSlide].classList.remove('active');
                     indicators[currentSlide].classList.remove('w-10', 'bg-white');
                     indicators[currentSlide].classList.add('w-4', 'bg-white/50');
-
-                    // Math to ensure loop stays within bounds even if negative
                     currentSlide = (n + slides.length) % slides.length;
-
-                    // Add active to current
                     slides[currentSlide].classList.add('active');
                     indicators[currentSlide].classList.remove('w-4', 'bg-white/50');
                     indicators[currentSlide].classList.add('w-10', 'bg-white');
@@ -380,32 +508,12 @@
 
                 function nextSlide() { goToSlide(currentSlide + 1); }
                 function prevSlide() { goToSlide(currentSlide - 1); }
+                function startInterval() { slideInterval = setInterval(nextSlide, intervalTime); }
+                function resetInterval() { clearInterval(slideInterval); startInterval(); }
 
-                function startInterval() {
-                    slideInterval = setInterval(nextSlide, intervalTime);
-                }
+                if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetInterval(); });
+                if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetInterval(); });
 
-                function resetInterval() {
-                    clearInterval(slideInterval);
-                    startInterval();
-                }
-
-                // Event Listeners for Arrows
-                if (nextBtn) {
-                    nextBtn.addEventListener('click', () => {
-                        nextSlide();
-                        resetInterval();
-                    });
-                }
-                
-                if (prevBtn) {
-                    prevBtn.addEventListener('click', () => {
-                        prevSlide();
-                        resetInterval();
-                    });
-                }
-
-                // Event Listeners for Dots
                 indicators.forEach((indicator, index) => {
                     indicator.addEventListener('click', () => {
                         goToSlide(index);
@@ -413,25 +521,63 @@
                     });
                 });
 
-                // Pause on hover
                 if (sliderContainer) {
                     sliderContainer.addEventListener('mouseenter', () => clearInterval(slideInterval));
                     sliderContainer.addEventListener('mouseleave', () => startInterval());
-                    
-                    // Keyboard Nav
                     sliderContainer.addEventListener('keydown', (e) => {
-                        if (e.key === 'ArrowLeft') {
-                            prevSlide();
-                            resetInterval();
-                        } else if (e.key === 'ArrowRight') {
-                            nextSlide();
-                            resetInterval();
-                        }
+                        if (e.key === 'ArrowLeft') { prevSlide(); resetInterval(); }
+                        else if (e.key === 'ArrowRight') { nextSlide(); resetInterval(); }
                     });
                 }
-
-                // Start autoplay
                 startInterval();
+            }
+        });
+
+        // --- Modal Logic ---
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            const content = modal.querySelector('.modal-content');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Force reflow
+            void modal.offsetWidth;
+            
+            modal.classList.remove('opacity-0');
+            modal.classList.add('opacity-100');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+            
+            // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            const content = modal.querySelector('.modal-content');
+            
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }, 300); // Matches CSS transition duration
+        }
+
+        // Close modal on Escape key press
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const openModals = document.querySelectorAll('.fixed.inset-0.flex');
+                openModals.forEach(modal => {
+                    if(!modal.classList.contains('hidden')) {
+                        closeModal(modal.id);
+                    }
+                });
             }
         });
     </script>
